@@ -1,23 +1,31 @@
 import React, { useEffect } from "react";
-import { StyleSheet, Text, View, SafeAreaView, ScrollView } from "react-native";
+import { StyleSheet, Text, View, Image} from "react-native";
 import { StatusBar } from "expo-status-bar";
+import tw from "twrnc";
 
 const Welcome = ({ navigation }) => {
   //console.log("from Welcome -",navigation)
   useEffect(() => {
     setTimeout(() => {
-        console.log("entered welcome")
       navigation.navigate("Tasklist");
     }, 2000);
-    console.log("exit welcome")
+    
   }, []);
 
   return (
 
-        <View style={styles.container}>
-          <Text style={styles.text}>Welcome Screen</Text>
-          <StatusBar style="light" backgroundColor="midnightblue" />
-        </View>
+          
+          <View style={tw`flex-1 justify-center items-center bg-blue-900`}>
+            <StatusBar style="light" backgroundColor="midnightblue" />
+            <Text style={tw`text-white text-5xl text-center mb-10`}>To-Do List</Text>
+            <Image
+              accessibilityLabel="Empty"
+              fadeDuration={100}
+              style={tw`w-full h-56`}
+              source={require("../assets/entry.png")}
+            />
+          </View>
+
 
   );
 };
