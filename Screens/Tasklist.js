@@ -13,6 +13,7 @@ import {
 import { AntDesign } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import tw from "twrnc";
+import LinearGradient from "react-native-linear-gradient";
 
 const Tasklist = () => {
   const [task, setTask] = useState("");
@@ -49,7 +50,9 @@ const Tasklist = () => {
 
   return (
     <>
-      <View style={tw`flex flex-col p-5 bg-blue-900 mt-8 h-full`}>
+    {/* <LinearGradient         colors={['purple', 'white']} start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 1 }} */}
+      <View style={tw`flex flex-col p-5 bg-rose-900 mt-8 h-full`}>
         <View>
           <Text style={tw`text-white font-bold text-3xl text-center underline`}>
             My Tasks
@@ -57,14 +60,14 @@ const Tasklist = () => {
         </View>
 
         {data.length === 0 ? (
-          <View style={tw`flex-1 justify-center items-center`}>
+          <View style={tw`mt-20 justify-center items-center`}>
             <Image
               accessibilityLabel="Empty"
               fadeDuration={100}
               style={tw`w-full h-56`}
               source={require("../assets/empty.png")}
             />
-            <Text style={tw`text-white text-xl opacity-90 mt-10`}>
+            <Text style={tw`text-white text-3xl opacity-70 mt-10`}>
               No More Tasks
             </Text>
           </View>
@@ -76,19 +79,21 @@ const Tasklist = () => {
               renderItem={({ item }) => (
                 <Fragment>
                   <View
-                    style={tw`bg-pink-200 my-1 py-2 rounded-xl hover:bg-red-200 flex flex-row justify-around items-center`}
+                    style={tw`bg-blue-200 my-1 py-2 rounded-xl hover:bg-red-200 flex flex-row  items-center`}
                   >
                     <MaterialCommunityIcons
                       name="sticker-check"
                       size={24}
                       color="green"
+                      style={tw`w-2/12 text-center top-0`}
                     />
-                    <Text style={tw`text-center font-bold`}>{item.task}</Text>
+                    <Text style={tw`text-justify font-bold w-8/12`}>{item.task}</Text>
                     <AntDesign
                       name="delete"
                       size={24}
                       color="red"
                       onPress={() => handleDelete(item.key)}
+                      style={tw`w-2/12 text-center`}
                     />
                   </View>
                 </Fragment>
@@ -103,45 +108,41 @@ const Tasklist = () => {
           transparent={true}
           style={tw`bg-yellow-100`}
           visible={modalvisible}
+          animationType="fade"
           onRequestClose={() => {
             setModalvisible(!modalvisible);
           }}
         >
           <View style={tw` bg-gray-100/50 flex-1 justify-center items-center`}>
             <View
-              style={tw`bg-gray-800  opacity-100 flex-1 mx-10 my-50 rounded-xl`}
+              style={tw`bg-gray-900 opacity-100 mx-10 my-10 h-76 rounded-xl w-80 items-center justify-center absolute`}
             >
-              <View style={tw`bg-blue-700 py-2 rounded-t-xl`}>
-                <Text style={tw`text-center text-white`}>Add a Task</Text>
+              
+              <View style={tw`bg-blue-700 py-2 mb-4 w-full rounded-t-xl`}>
+                <Text style={tw`text-center text-lg text-white`}>Add a Task</Text>
               </View>
-              <View style={tw`items-center justify-center flex-1 w-full`}>
+              <View style={tw`items-center justify-center w-full`}>
                 <TextInput
-                  style={{
-                    height: 40,
-                    margin: 12,
-                    borderWidth: 1,
-                    padding: 10,
-                    color: "white",
-                    backgroundColor: "gray",
-                    width: 300,
-                  }}
+                  multiline={true}
+                  numberOfLines={5}
+                  style={tw`bg-gray-200 overflow-hidden px-5 py-4 my-7 text-lg w-11/12 rounded-lg text-justify`}
                   onChangeText={setTask}
                   value={task}
-                  placeholder="Add task here"
+                  placeholder="Add Your Task Here"
                   keyboardType="ascii-capable"
                 />
               </View>
-              <View style={tw`flex flex-row w-full items-center`}>
+              <View style={tw`flex-row w-full `}>
                 <Pressable onPress={() => handlePress()}>
                   <Text
-                    style={tw`bg-gray-700 text-white py-2 px-16 text-center`}
+                    style={tw`bg-green-700 text-white py-2 px-16 text-center rounded-bl-lg`}
                   >
                     Add
                   </Text>
                 </Pressable>
                 <Pressable onPress={() => setModalvisible(!modalvisible)}>
                   <Text
-                    style={tw`bg-gray-700/50 text-white py-2 px-16 text-center`}
+                    style={tw`bg-red-700 text-white py-2 px-16 text-center rounded-br-lg`}
                   >
                     Close
                   </Text>
@@ -150,6 +151,8 @@ const Tasklist = () => {
             </View>
           </View>
         </Modal>
+
+        
         <View style={styles.pressView}>
           <Pressable
             style={[

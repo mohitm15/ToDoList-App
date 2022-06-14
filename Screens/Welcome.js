@@ -15,7 +15,7 @@ const Welcome = ({ navigation }) => {
   return (
 
           
-          <View style={tw`flex-1 justify-center items-center bg-blue-900`}>
+          <View style={tw`flex-1 justify-center items-center bg-indigo-900`}>
             <StatusBar style="light" backgroundColor="midnightblue" />
             <Text style={tw`text-white text-5xl text-center mb-10`}>To-Do List</Text>
             <Image
@@ -31,11 +31,8 @@ const Welcome = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#08325F",
-    alignItems: "center",
-    justifyContent: "center",
+  mainView:{
+    backgroundColor:'#00C0FF'
   },
   text: {
     color: "yellow",

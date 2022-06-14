@@ -9,7 +9,7 @@ const Stack = createNativeStackNavigator();
 
 export default function App() {
 
-  //const [task, setTask] = useState('');
+  // const [task, setTask] = useState('');
 
   
   return (
