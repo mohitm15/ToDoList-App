@@ -6,7 +6,7 @@ import {
   FlatList,
   Pressable,
   TextInput,
-  Button,
+  ImageBackground,
   Modal,
   Image,
 } from "react-native";
@@ -19,6 +19,7 @@ const Tasklist = () => {
   const [task, setTask] = useState("");
   const [data, setData] = useState([]);
   const [modalvisible, setModalvisible] = useState(false);
+  const [isCheck, setIsCheck] = useState(false);
 
   const handlePress = () => {
     //console.log("submit pressed for task = ", task);
@@ -28,6 +29,7 @@ const Tasklist = () => {
         {
           task: task,
           key: Math.floor(Math.random() * Date.now()).toString(),
+          isComplete:false,
         },
       ]);
     }
@@ -46,13 +48,18 @@ const Tasklist = () => {
     });
   };
 
+  const handleCheck = (keygiven) => {
+    setIsCheck( !data[key].isComplete)
+  }
+
 
 
   return (
     <>
     {/* <LinearGradient         colors={['purple', 'white']} start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 1 }} */}
-      <View style={tw`flex flex-col p-5 bg-rose-900 mt-8 h-full`}>
+      <ImageBackground source={require("../assets/bg.png")} resizeMode="cover">
+      <View style={tw`flex flex-col p-5 bg-transparent mt-8 h-full`}>
         <View>
           <Text style={tw`text-white font-bold text-3xl text-center underline`}>
             My Tasks
@@ -169,6 +176,7 @@ const Tasklist = () => {
           </Pressable>
         </View>
       </View>
+      </ImageBackground>
     </>
   );
 };
