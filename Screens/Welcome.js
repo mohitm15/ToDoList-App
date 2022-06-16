@@ -1,10 +1,9 @@
 import React, { useEffect } from "react";
-import { StyleSheet, Text, View, Image, ImageBackground } from "react-native";
+import { Text, View, Image, ImageBackground } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import tw from "twrnc";
 
 const Welcome = ({ navigation }) => {
-  //console.log("from Welcome -",navigation)
   useEffect(() => {
     setTimeout(() => {
       navigation.navigate("Tasklist");
@@ -12,7 +11,11 @@ const Welcome = ({ navigation }) => {
   }, []);
 
   return (
-    <ImageBackground source={require("../assets/bg.png")} resizeMode="cover">
+    <ImageBackground
+      source={require("../assets/bg.png")}
+      resizeMode="cover"
+      style={tw`flex-1`}
+    >
       <View style={tw`flex-1 justify-center items-center`}>
         <StatusBar style="light" backgroundColor="midnightblue" />
         <Text style={tw`text-white text-5xl text-center mb-10`}>
@@ -28,15 +31,5 @@ const Welcome = ({ navigation }) => {
     </ImageBackground>
   );
 };
-
-const styles = StyleSheet.create({
-  mainView: {
-    backgroundColor: "#00C0FF",
-  },
-  text: {
-    color: "yellow",
-    fontSize: 30,
-  },
-});
 
 export default Welcome;
