@@ -9,6 +9,8 @@ import {
   ImageBackground,
   Modal,
   Image,
+  Alert,
+  TouchableOpacity,
 } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import tw from "twrnc";
@@ -19,9 +21,10 @@ const Tasklist = () => {
   const [data, setData] = useState([]);
   const [modalvisible, setModalvisible] = useState(false);
   const [isCheck, setIsCheck] = useState(false);
+  const [prioritystate,setPrioritystate] = useState(3);
 
   const handlePress = () => {
-    //console.log("submit pressed for task = ", task);
+    console.log("submit pressed for task = ", task);
     if (task.length !== 0) {
       setData((current) => [
         ...current,
@@ -29,11 +32,15 @@ const Tasklist = () => {
           task: task,
           key: Math.floor(Math.random() * Date.now()).toString(),
           isComplete: false,
+          priority:prioritystate,
         },
       ]);
     }
     setModalvisible(!modalvisible);
     setTask("");
+    Alert.alert("Task Added","Your Task Has Been Added Succesfully", [
+      { text:"Cancel" }, {text:"OK"}
+    ])
   };
 
   const handleDelete = (keygiven) => {
@@ -41,10 +48,13 @@ const Tasklist = () => {
     setData((current) => {
       return current.filter((task) => keygiven != task.key);
     });
+    Alert.alert("Task Removed","Your Task Has Been Removed Succesfully", [
+      { text:"Cancel" }, {text:"OK"}
+    ])
   };
 
   const handleCheck = (keygiven) => {
-    for (i in data) {
+    for (let i in data) {
       if (data[i].key === keygiven) {
         //db me value change
         if (data[i].isComplete === true) {
@@ -60,10 +70,29 @@ const Tasklist = () => {
     }
   };
 
+  const setPriorityColor = (prioritystate)=> {
+    let colo = ""
+    switch (prioritystate) {
+      case 1:
+          colo = `bg-red-500`
+        break;
+        case 2:
+          colo =  `bg-yellow-500`
+        break;
+        case 3:
+          colo =  `bg-green-500`
+        break;
+      default:
+        colo = `bg-red-500`
+        break;
+    }
+    return colo;
+  }
+
   return (
     <>
       <ImageBackground source={require("../assets/bg.png")} resizeMode="cover">
-        <View style={tw`flex flex-col p-5 bg-transparent mt-8 h-full`}>
+        <View style={tw`flex flex-col p-5 bg-transparent mt-10 h-full`}>
           <View>
             <Text
               style={tw`text-white font-bold text-3xl text-center underline`}
@@ -89,7 +118,7 @@ const Tasklist = () => {
           ) : (
             <View style={tw`border-2 border-stone-200/40 rounded-xl mt-5 p-2`}>
               <FlatList
-                data={data}
+                data={data.sort((a,b)=>(a.priority - b.priority))}
                 keyExtractor={(item) => item.key}
                 renderItem={({ item }) => (
                   <Fragment>
@@ -123,6 +152,8 @@ const Tasklist = () => {
                         onPress={() => handleDelete(item.key)}
                         style={tw`w-2/12 text-center`}
                       />
+                      <View style={tw`w-2 rounded-t-md rounded-b-md h-full ${setPriorityColor(item.priority)}`}>
+                      </View>
                     </View>
                   </Fragment>
                 )}
@@ -147,7 +178,7 @@ const Tasklist = () => {
               <View
                 style={tw`bg-gray-900 opacity-100 mx-10 my-10 h-76 rounded-xl w-80 items-center justify-center absolute`}
               >
-                <View style={tw`bg-blue-700 py-2 mb-4 w-full rounded-t-xl`}>
+                <View style={tw`bg-blue-700 py-2 mb-1  w-full rounded-t-xl`}>
                   <Text style={tw`text-center text-lg text-white`}>
                     Add a Task
                   </Text>
@@ -155,13 +186,19 @@ const Tasklist = () => {
                 <View style={tw`items-center justify-center w-full`}>
                   <TextInput
                     multiline={true}
-                    numberOfLines={5}
-                    style={tw`bg-gray-200 overflow-hidden px-5 py-4 my-7 text-lg w-11/12 rounded-lg text-justify`}
+                    numberOfLines={4}
+                    style={tw`bg-gray-200 overflow-hidden px-5 py-4 my-3 text-lg w-11/12 rounded-lg text-justify`}
                     onChangeText={setTask}
                     value={task}
                     placeholder="Add Your Task Here"
                     keyboardType="ascii-capable"
                   />
+                </View>
+                <View style={tw`flex-row justify-start items-center p-2 border-2 my-4 border-white/50 rounded-lg`}>
+                  <Text style={tw`text-white mx-3`}>Priority : </Text>
+                  <TouchableOpacity style={tw`bg-red-500 w-5 h-5 mx-2 rounded-full active:ring-1 active:ring-white`} onPress={()=>setPrioritystate(1)}></TouchableOpacity>
+                  <TouchableOpacity style={tw`bg-yellow-500 w-5 h-5 mx-2 rounded-full`} onPress={()=>setPrioritystate(2)}></TouchableOpacity>
+                  <TouchableOpacity style={tw`bg-green-500 w-5 h-5 mx-2 rounded-full`} onPress={()=>setPrioritystate(3)}></TouchableOpacity>
                 </View>
                 <View style={tw`flex-row w-full `}>
                   <Pressable onPress={() => handlePress()}>
@@ -191,7 +228,7 @@ const Tasklist = () => {
                   backgroundColor: pressed ? "green" : "red",
                 }),
               ]}
-              onPress={handlePress}
+              onPress={()=>setModalvisible(!modalvisible)}
             >
               <Text style={styles.ptext}>
                 <AntDesign name="addfile" size={28} color="white" />
@@ -207,7 +244,7 @@ const Tasklist = () => {
 const styles = StyleSheet.create({
   pressView: {
     right: "10%",
-    bottom: "10%",
+    bottom: "15%",
     position: "absolute",
   },
   press: {
