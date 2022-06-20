@@ -37,7 +37,7 @@
 
 ![Screenshot from 2022-06-17 08-39-20](https://user-images.githubusercontent.com/35539313/174217551-150385cb-fcc8-4dd4-a7b2-44a3b909d23e.png)
 
-![Screenshot from 2022-06-17 08-41-36](https://user-images.githubusercontent.com/35539313/174217558-195f8ee4-bed8-4ffd-b8d0-33cd7937f088.png)
+![Screenshot from 2022-06-20 19-03-25](https://user-images.githubusercontent.com/35539313/174613564-2d236cb1-c293-4d44-9a9d-ae3cac77936f.png)
 
 
 <!-- GETTING STARTED -->
