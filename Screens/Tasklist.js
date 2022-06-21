@@ -24,7 +24,7 @@ const Tasklist = () => {
   const [prioritystate,setPrioritystate] = useState(3);
 
   const handlePress = () => {
-    console.log("submit pressed for task = ", task);
+    //console.log("submit pressed for task = ", task);
     if (task.length !== 0) {
       setData((current) => [
         ...current,

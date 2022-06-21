@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "ToDoList",
-    "slug": "ToDoList",
+    "slug": "mohit_todolist",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -25,7 +25,7 @@
         "foregroundImage": "./assets/entry.png",
         "backgroundColor": "#093685"
       },
-      "package":"com.mohitmaroliya.todolist"
+      "package":"com.mohit_todolist.myapp"
     },
     "web": {
       "favicon": "./assets/favicon.png"
